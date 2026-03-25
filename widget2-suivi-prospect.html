@@ -956,15 +956,18 @@ function showAutocomplete(list) {
     el.innerHTML = list.map(p => {
       const prenom = p.prenom || p.Prenom || '';
       const nom = p.nom || p.Nom || '';
-      const statut = p.statut || p.Statut || '—';
-      const tel = p.telephone || p.Telephone || '';
+      const statut = (p.statut || p.Statut || 'Nouveau').toString().replace('#ERROR!', 'Nouveau');
+      const tel = (p.telephone || p.Telephone || '').toString().replace('#ERROR!', '—');
       const id = p.id || p.ID || p.Id || '';
+      const statutClean = (statut || 'Nouveau').replace('#ERROR!', 'Nouveau');
+      const prenomClean = prenom.replace('#ERROR!', '').trim();
+      const nomClean = nom.replace('#ERROR!', '').trim();
       return `<div class="autocomplete-item" onclick="selectProspect(${JSON.stringify(JSON.stringify(p)).slice(1,-1)})">
         <div>
-          <div class="ac-name">${prenom} ${nom}</div>
-          <div class="ac-info">${tel || 'Pas de tel'} · ${statut}</div>
+          <div class="ac-name">${prenomClean} ${nomClean}</div>
+          <div class="ac-info">${tel || 'Pas de tel'} · ${statutClean}</div>
         </div>
-        <span class="status-badge status-${statut}">${statut}</span>
+        <span class="status-badge status-${statutClean}">${statutClean}</span>
       </div>`;
     }).join('');
   }
@@ -1006,7 +1009,8 @@ function selectProspect(pJson) {
 
   // Band
   document.getElementById('bandName').textContent = prenom + ' ' + nom;
-  document.getElementById('bandInfo').textContent = tel || 'Pas de téléphone';
+  const telClean = (tel || '').toString().replace('#ERROR!', '');
+  document.getElementById('bandInfo').textContent = telClean || 'Pas de téléphone';
   document.getElementById('bandStatus').textContent = statut;
   document.getElementById('bandStatus').className = 'status-badge status-' + statut;
   document.getElementById('prospectBand').classList.add('visible');

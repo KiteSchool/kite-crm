@@ -593,7 +593,7 @@ async function submitProspect() {
     action: 'addProspect',
     prenom,
     nom,
-    telephone: document.getElementById('telephone').value.trim(),
+    telephone: document.getElementById('telephone').value.trim().replace(/^\+33/, '0').replace(/\s/g, ''),
     email: document.getElementById('email').value.trim(),
     typeProfil,
     activites: getActivites().join(', '),
