@@ -9,654 +9,216 @@
 <title>KiteSchool Leucate — Suivi Prospect</title>
 <style>
   :root {
-    --ocean: #0077b6;
-    --sky: #00b4d8;
-    --sand: #f4f1e8;
-    --foam: #ffffff;
-    --deep: #03045e;
-    --accent: #f77f00;
-    --muted: #6b7280;
-    --border: #d1d5db;
-    --danger: #ef4444;
-    --success: #22c55e;
-    --warn: #f59e0b;
-    --radius: 14px;
-    --shadow: 0 2px 12px rgba(0,119,182,0.10);
+    --ocean: #0077b6; --sky: #00b4d8; --sand: #f4f1e8; --deep: #03045e;
+    --accent: #f77f00; --muted: #6b7280; --border: #d1d5db;
+    --danger: #ef4444; --success: #22c55e; --warn: #f59e0b;
+    --radius: 14px; --shadow: 0 2px 12px rgba(0,119,182,0.10);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
   body {
     font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     background: linear-gradient(160deg, #e8f4fd 0%, #f4f1e8 100%);
-    min-height: 100vh;
-    padding-bottom: 40px;
+    min-height: 100vh; padding-bottom: 40px;
   }
 
-  /* Header sticky */
   .sticky-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 100;
     background: linear-gradient(135deg, var(--deep) 0%, var(--ocean) 100%);
-    color: white;
-    padding: 50px 16px 14px;
-    box-shadow: 0 2px 16px rgba(3,4,94,0.3);
+    color: white; padding: 50px 16px 14px; box-shadow: 0 2px 16px rgba(3,4,94,0.3);
   }
-
-  .sticky-header .logo {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 4px;
-  }
-
-  .sticky-header h1 {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
+  .sticky-header .logo { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
+  .sticky-header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
   .sticky-header h1 span { color: var(--sky); }
 
-  /* Prospect info sticky band (fiche) */
   .prospect-band {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 10px;
-    padding: 8px 12px;
+    display: none; align-items: center; justify-content: space-between;
+    margin-top: 10px; background: rgba(255,255,255,0.12); border-radius: 10px; padding: 8px 12px;
   }
-
   .prospect-band.visible { display: flex; }
-
-  .prospect-band .pname {
-    font-size: 16px;
-    font-weight: 700;
-  }
+  .prospect-band .pname { font-size: 16px; font-weight: 700; }
 
   .status-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 20px;
+    letter-spacing: 0.3px; text-transform: uppercase; white-space: nowrap;
   }
+  .status-Nouveau-prospect, .status-Nouveau { background: #dbeafe; color: #1e40af; }
+  .status-Proposition-envoyée { background: #fef9c3; color: #854d0e; }
+  .status-Intérêt-confirmé { background: #d1fae5; color: #065f46; }
+  .status-Réservation-en-cours { background: #e0f2fe; color: #0369a1; }
+  .status-Réservation-confirmée { background: #f0fdf4; color: var(--success); }
+  .status-Perdu, .status-Perdu---manque-dispo, .status-Perdu---concurrence { background: #fee2e2; color: var(--danger); }
+  .status-Client { background: #faf5ff; color: #7e22ce; }
 
-  .status-Nouveau { background: #dbeafe; color: #1e40af; }
-  .status-Contacté { background: #fef9c3; color: #854d0e; }
-  .status-Qualifié { background: #d1fae5; color: #065f46; }
-  .status-Converti { background: #f0fdf4; color: var(--success); }
-  .status-Perdu { background: #fee2e2; color: var(--danger); }
-  .status-Relance { background: #ffedd5; color: #9a3412; }
-
-  /* Search zone */
   .search-card {
-    background: white;
-    margin: 14px 12px 0;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: visible;
-    position: relative;
+    background: white; margin: 14px 12px 0; border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: visible; position: relative;
   }
-
-  .search-inner {
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .search-icon {
-    color: var(--muted);
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-
+  .search-inner { padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+  .search-icon { color: var(--muted); font-size: 18px; flex-shrink: 0; }
   #searchInput {
-    flex: 1;
-    border: none;
-    font-size: 17px;
-    font-family: inherit;
-    color: var(--deep);
-    background: transparent;
-    outline: none;
+    flex: 1; border: none; font-size: 17px; font-family: inherit;
+    color: var(--deep); background: transparent; outline: none;
   }
-
   #searchInput::placeholder { color: #adb5bd; }
-
   .search-clear {
-    display: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #e5e7eb;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    flex-shrink: 0;
+    display: none; width: 24px; height: 24px; border-radius: 50%; background: #e5e7eb;
+    border: none; font-size: 13px; cursor: pointer; align-items: center; justify-content: center;
+    color: var(--muted); flex-shrink: 0;
   }
-
   .search-clear.visible { display: flex; }
 
-  /* Dropdown list */
   #autocompleteList {
-    display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0; right: 0;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-    max-height: 280px;
-    overflow-y: auto;
-    z-index: 200;
-    border: 1px solid var(--border);
+    display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+    background: white; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    max-height: 280px; overflow-y: auto; z-index: 200; border: 1px solid var(--border);
   }
-
   #autocompleteList.visible { display: block; }
-
   .autocomplete-item {
-    padding: 13px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background 0.15s;
+    padding: 13px 16px; display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.15s;
   }
-
   .autocomplete-item:last-child { border-bottom: none; }
-  .autocomplete-item:active, .autocomplete-item:hover { background: #f0f7ff; }
-
+  .autocomplete-item:active { background: #f0f7ff; }
   .ac-name { font-size: 15px; font-weight: 600; color: var(--deep); }
   .ac-info { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-  /* Mode tabs */
   .mode-tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 12px 12px 0;
-    background: white;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr; margin: 12px 12px 0;
+    background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
   }
-
   .mode-tab {
-    padding: 13px 8px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    border-bottom: 3px solid transparent;
-    letter-spacing: 0.3px;
+    padding: 13px 8px; text-align: center; font-size: 13px; font-weight: 700;
+    color: var(--muted); cursor: pointer; transition: all 0.2s; border-bottom: 3px solid transparent;
   }
+  .mode-tab.active { color: var(--ocean); border-bottom-color: var(--ocean); background: #f0f7ff; }
 
-  .mode-tab.active {
-    color: var(--ocean);
-    border-bottom-color: var(--ocean);
-    background: #f0f7ff;
-  }
-
-  /* =================== SAISIE RAPIDE =================== */
-  #view-rapide { display: block; }
-  #view-fiche { display: none; }
-
-  .form-card {
-    background: white;
-    margin: 12px 12px 0;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
+  .form-card { background: white; margin: 12px 12px 0; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
   .section-title {
-    background: var(--sand);
-    padding: 10px 16px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--deep);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    background: var(--sand); padding: 10px 16px; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--deep); border-bottom: 1px solid var(--border);
   }
-
   .field-group { padding: 0 16px; }
-
-  .field {
-    padding: 13px 0;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
+  .field { padding: 13px 0; border-bottom: 1px solid #f0f0f0; }
   .field:last-child { border-bottom: none; }
-
-  .field label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 6px;
+  .field > label {
+    display: block; font-size: 11px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px;
   }
+  .sublabel { font-size: 11px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 4px; }
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="date"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 11px 13px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--deep);
-    background: #fafafa;
-    -webkit-appearance: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+  input[type="text"], input[type="date"], select, textarea {
+    width: 100%; padding: 11px 13px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 16px; font-family: inherit; color: var(--deep); background: #fafafa;
+    -webkit-appearance: none; transition: border-color 0.2s, box-shadow 0.2s;
   }
-
   input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--ocean);
-    box-shadow: 0 0 0 3px rgba(0,119,182,0.10);
-    background: white;
+    outline: none; border-color: var(--ocean); box-shadow: 0 0 0 3px rgba(0,119,182,0.10); background: white;
   }
-
   select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 38px;
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 38px;
   }
-
   textarea { resize: none; min-height: 80px; }
 
   .conditional { display: none; }
   .conditional.visible { display: block; }
 
-  /* Radio group */
-  .radio-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+  /* Pills de sélection */
+  .pill-group { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill-group input { display: none; }
+  .pill-group label {
+    padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 20px;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer;
+    transition: all 0.2s; margin: 0; white-space: nowrap;
   }
+  .pill-group input:checked + label { border-color: var(--ocean); background: #e8f4fd; color: var(--ocean); }
+  .pill-group.accent input:checked + label { border-color: var(--accent); background: #fff4e6; color: var(--accent); }
 
-  .radio-row input { display: none; }
-
-  .radio-row label {
-    padding: 9px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0;
-    text-transform: none;
-    letter-spacing: 0;
-    white-space: nowrap;
-  }
-
-  .radio-row input:checked + label {
-    border-color: var(--ocean);
-    background: #e8f4fd;
-    color: var(--ocean);
-  }
-
-  .radio-row.accent input:checked + label {
-    border-color: var(--accent);
-    background: #fff4e6;
-    color: var(--accent);
-  }
-
-  /* Statut select */
-  .statut-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
+  .statut-row { display: flex; gap: 8px; align-items: center; }
   .statut-row select { flex: 1; }
-
   .btn-statut {
-    padding: 11px 16px;
-    background: var(--ocean);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: opacity 0.2s;
+    padding: 11px 14px; background: var(--ocean); color: white; border: none;
+    border-radius: 10px; font-size: 13px; font-weight: 700; font-family: inherit;
+    cursor: pointer; white-space: nowrap; transition: opacity 0.2s;
   }
-
   .btn-statut:active { opacity: 0.8; }
 
-  /* Submit buttons */
-  .submit-area {
-    padding: 16px 12px 6px;
-  }
-
+  .submit-area { padding: 14px 12px 6px; }
   .btn-primary {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, var(--ocean) 0%, var(--sky) 100%);
-    color: white;
-    border: none;
-    border-radius: 13px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0,119,182,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: transform 0.15s, box-shadow 0.15s;
+    width: 100%; padding: 15px; background: linear-gradient(135deg, var(--ocean) 0%, var(--sky) 100%);
+    color: white; border: none; border-radius: 13px; font-size: 16px; font-weight: 700;
+    font-family: inherit; cursor: pointer; box-shadow: 0 4px 16px rgba(0,119,182,0.3);
+    display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.15s;
   }
-
   .btn-primary:active { transform: scale(0.98); }
   .btn-primary:disabled { opacity: 0.6; pointer-events: none; }
-
-  .btn-secondary {
-    width: 100%;
-    padding: 13px;
-    background: white;
-    color: var(--ocean);
-    border: 2px solid var(--ocean);
-    border-radius: 13px;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.2s;
+  .btn-fiche {
+    display: block; width: 100%; padding: 11px; background: transparent; color: var(--ocean);
+    border: 2px solid var(--ocean); border-radius: 10px; font-size: 13px; font-weight: 700;
+    font-family: inherit; cursor: pointer; margin-top: 8px; text-align: center; transition: background 0.2s;
   }
+  .btn-fiche:active { background: #e8f4fd; }
 
-  .btn-secondary:active { background: #e8f4fd; }
-
-  /* =================== FICHE COMPLÈTE =================== */
-  .fiche-section {
-    background: white;
-    margin: 12px 12px 0;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
-  .fiche-toggle {
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .fiche-toggle-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--deep);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .fiche-toggle-arrow {
-    font-size: 12px;
-    color: var(--muted);
-    transition: transform 0.25s;
-  }
-
+  /* Fiche complète */
+  .fiche-section { background: white; margin: 12px 12px 0; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .fiche-toggle { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+  .fiche-toggle-title { font-size: 13px; font-weight: 700; color: var(--deep); display: flex; align-items: center; gap: 8px; }
+  .fiche-toggle-arrow { font-size: 12px; color: var(--muted); transition: transform 0.25s; }
   .fiche-section.open .fiche-toggle-arrow { transform: rotate(180deg); }
-
-  .fiche-body {
-    display: none;
-    border-top: 1px solid #f0f0f0;
-    padding: 14px 16px;
-  }
-
+  .fiche-body { display: none; border-top: 1px solid #f0f0f0; padding: 14px 16px; }
   .fiche-section.open .fiche-body { display: block; }
-
-  .fiche-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 7px 0;
-    border-bottom: 1px solid #f7f7f7;
-  }
-
+  .fiche-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #f7f7f7; }
   .fiche-row:last-child { border-bottom: none; }
+  .fiche-label { font-size: 12px; color: var(--muted); font-weight: 600; flex-shrink: 0; margin-right: 10px; }
+  .fiche-value { font-size: 14px; color: var(--deep); font-weight: 500; text-align: right; }
+  .pill-tag { display: inline-block; background: #e8f4fd; color: var(--ocean); font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 20px; margin: 2px; }
 
-  .fiche-label {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 600;
-    flex-shrink: 0;
-    margin-right: 10px;
-  }
+  .rappel-item { background: #fffbeb; border-radius: 8px; padding: 10px 12px; margin-bottom: 7px; border-left: 3px solid var(--warn); }
+  .rappel-item.fait { border-left-color: var(--success); opacity: 0.6; }
+  .rappel-date { font-size: 12px; font-weight: 700; color: var(--deep); }
+  .rappel-type { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  .fiche-value {
-    font-size: 14px;
-    color: var(--deep);
-    font-weight: 500;
-    text-align: right;
-  }
+  .arrhes-amount { font-size: 32px; font-weight: 800; color: var(--ocean); text-align: center; padding: 8px 0 4px; }
+  .arrhes-status { text-align: center; margin-bottom: 12px; }
+  .badge-demande { background: #dbeafe; color: #1e40af; }
+  .badge-recu { background: #d1fae5; color: #065f46; }
+  .badge-rembourser { background: #ffedd5; color: #9a3412; }
+  .badge-rembourse { background: #f3f4f6; color: #6b7280; }
+  .badge-conserver { background: #f3e8ff; color: #7e22ce; }
 
-  /* Rappels liste */
-  .rappels-list { margin-top: 10px; }
-
-  .rappel-item {
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 7px;
-    border-left: 3px solid var(--warn);
-  }
-
-  .rappel-item.fait { border-left-color: var(--success); opacity: 0.7; }
-
-  .rappel-date {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--deep);
-  }
-
-  .rappel-type {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  /* Arrhes */
-  .arrhes-amount {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--ocean);
-    text-align: center;
-    padding: 10px 0 6px;
-  }
-
-  .arrhes-status {
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  /* Pill tags */
-  .pill {
-    display: inline-block;
-    background: #e8f4fd;
-    color: var(--ocean);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 20px;
-    margin: 2px;
-  }
-
-  /* Suivi items */
-  .suivi-item {
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 7px;
-  }
-
-  .suivi-meta {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 4px;
-    display: flex;
-    gap: 8px;
-  }
-
-  .suivi-content {
-    font-size: 13px;
-    color: var(--deep);
-    line-height: 1.4;
-  }
-
-  /* Event form */
-  .event-form {
-    background: #f0f7ff;
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 10px;
-  }
-
-  .event-form input, .event-form select {
-    margin-bottom: 8px;
-    font-size: 14px;
-    padding: 9px 12px;
-  }
-
-  .event-form input:last-child, .event-form select:last-child { margin-bottom: 0; }
-
+  .event-form { background: #f0f7ff; border-radius: 10px; padding: 12px; margin-top: 10px; }
+  .event-form > * { margin-bottom: 8px; }
+  .event-form > *:last-child { margin-bottom: 0; }
   .btn-sm {
-    padding: 9px 16px;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    transition: opacity 0.15s;
-    margin-top: 8px;
+    padding: 9px 16px; background: var(--accent); color: white; border: none;
+    border-radius: 8px; font-size: 13px; font-weight: 700; font-family: inherit;
+    cursor: pointer; transition: opacity 0.15s;
   }
-
   .btn-sm:active { opacity: 0.8; }
 
-  /* Empty state */
-  .empty-state {
-    text-align: center;
-    padding: 50px 20px;
-    color: var(--muted);
-  }
-
+  .empty-state { text-align: center; padding: 50px 20px; color: var(--muted); }
   .empty-state .icon { font-size: 42px; margin-bottom: 10px; }
   .empty-state p { font-size: 15px; }
 
-  /* Toast */
   .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--deep);
-    color: white;
-    padding: 13px 22px;
-    border-radius: 40px;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    z-index: 999;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--deep); color: white; padding: 13px 22px; border-radius: 40px;
+    font-size: 14px; font-weight: 600; white-space: nowrap; z-index: 999;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   }
-
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--success); }
   .toast.error { background: var(--danger); }
   .toast.warn { background: var(--warn); }
-
-  /* Spinner */
   .spinner {
-    width: 18px; height: 18px;
-    border: 2.5px solid rgba(255,255,255,0.4);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
+    width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.4);
+    border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
   }
-
   .btn-primary.loading .spinner { display: block; }
   .btn-primary.loading .btn-text { display: none; }
-
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Loading skeleton */
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.2s infinite;
-    border-radius: 6px;
-    height: 16px;
-    margin: 4px 0;
-  }
-
+  .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 6px; height: 16px; margin: 4px 0; }
   @keyframes shimmer { to { background-position: -200% 0; } }
-
-  .no-prospect-msg {
-    text-align: center;
-    padding: 30px;
-    color: var(--muted);
-    font-size: 15px;
-  }
-
-  .btn-fiche {
-    display: block;
-    width: 100%;
-    padding: 11px;
-    background: transparent;
-    color: var(--ocean);
-    border: 2px solid var(--ocean);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 12px;
-    text-align: center;
-    transition: background 0.2s;
-  }
-
-  .btn-fiche:active { background: #e8f4fd; }
 </style>
 </head>
 <body>
@@ -673,23 +235,24 @@
   </div>
 </div>
 
-<!-- Search -->
+<!-- Recherche -->
 <div class="search-card" id="searchCard">
   <div class="search-inner">
     <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Rechercher un prospect…" autocomplete="off" oninput="handleSearch()" onfocus="handleSearchFocus()">
+    <input type="text" id="searchInput" placeholder="Rechercher un prospect…" autocomplete="off"
+      oninput="handleSearch()" onfocus="handleSearchFocus()">
     <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
   </div>
   <div id="autocompleteList"></div>
 </div>
 
-<!-- Mode tabs (hidden until prospect selected) -->
+<!-- Tabs -->
 <div class="mode-tabs" id="modeTabs" style="display:none;">
   <div class="mode-tab active" id="tab-rapide" onclick="switchMode('rapide')">⚡ Saisie rapide</div>
   <div class="mode-tab" id="tab-fiche" onclick="switchMode('fiche')">📋 Fiche complète</div>
 </div>
 
-<!-- No prospect selected -->
+<!-- Pas de prospect -->
 <div id="noProspectMsg">
   <div class="empty-state">
     <div class="icon">🏄</div>
@@ -697,10 +260,9 @@
   </div>
 </div>
 
-<!-- ===================== VUE SAISIE RAPIDE ===================== -->
+<!-- ===== SAISIE RAPIDE ===== -->
 <div id="view-rapide" style="display:none;">
 
-  <!-- Statut -->
   <div class="form-card">
     <div class="section-title">Statut prospect</div>
     <div class="field-group">
@@ -708,49 +270,46 @@
         <div class="statut-row">
           <select id="newStatut">
             <option value="">— Statut actuel —</option>
-            <option value="Nouveau">Nouveau</option>
-            <option value="Contacté">Contacté</option>
-            <option value="Qualifié">Qualifié</option>
-            <option value="Converti">Converti</option>
-            <option value="Relance">Relance</option>
+            <option value="Nouveau prospect">Nouveau prospect</option>
+            <option value="Proposition envoyée">Proposition envoyée</option>
+            <option value="Intérêt confirmé">Intérêt confirmé</option>
+            <option value="Réservation en cours">Réservation en cours</option>
+            <option value="Réservation confirmée">Réservation confirmée</option>
             <option value="Perdu">Perdu</option>
+            <option value="Perdu - manque dispo">Perdu - manque dispo</option>
+            <option value="Perdu - concurrence">Perdu - concurrence</option>
+            <option value="Client">Client</option>
           </select>
-          <button class="btn-statut" onclick="updateStatut()">Mettre à jour</button>
+          <button class="btn-statut" onclick="updateStatut()">✓ Valider</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Nouvelle note -->
   <div class="form-card">
     <div class="section-title">Nouvelle note de contact</div>
     <div class="field-group">
       <div class="field">
         <label>Type de contact</label>
-        <div class="radio-row">
-          <input type="radio" name="typeContact" id="tc-appel" value="Appel" checked>
-          <label for="tc-appel">📞 Appel</label>
-          <input type="radio" name="typeContact" id="tc-sms" value="SMS">
-          <label for="tc-sms">💬 SMS</label>
-          <input type="radio" name="typeContact" id="tc-mail" value="Mail">
-          <label for="tc-mail">✉️ Mail</label>
-          <input type="radio" name="typeContact" id="tc-visite" value="Visite">
-          <label for="tc-visite">👣 Visite</label>
+        <div class="pill-group">
+          <input type="radio" name="typeContact" id="tc-tel" value="Téléphone" checked><label for="tc-tel">📞 Téléphone</label>
+          <input type="radio" name="typeContact" id="tc-wa" value="WhatsApp"><label for="tc-wa">💬 WhatsApp</label>
+          <input type="radio" name="typeContact" id="tc-sms" value="SMS"><label for="tc-sms">✉️ SMS</label>
+          <input type="radio" name="typeContact" id="tc-mail" value="Email"><label for="tc-mail">📧 Email</label>
+          <input type="radio" name="typeContact" id="tc-place" value="Sur place"><label for="tc-place">👣 Sur place</label>
+          <input type="radio" name="typeContact" id="tc-relance" value="Relance"><label for="tc-relance">🔄 Relance</label>
         </div>
       </div>
       <div class="field">
-        <label>Contenu</label>
-        <textarea id="contenuNote" placeholder="Résumé de l'échange…"></textarea>
+        <label>Contenu *</label>
+        <textarea id="contenuNote" placeholder="Résumé de l'échange, infos recueillies…"></textarea>
       </div>
 
-      <!-- Rappel -->
       <div class="field">
         <label>Programmer un rappel ?</label>
-        <div class="radio-row accent">
-          <input type="radio" name="estRappel" id="rapp-oui" value="Oui" onchange="toggleRappel()">
-          <label for="rapp-oui">🔔 Oui</label>
-          <input type="radio" name="estRappel" id="rapp-non" value="Non" onchange="toggleRappel()" checked>
-          <label for="rapp-non">— Non</label>
+        <div class="pill-group accent">
+          <input type="radio" name="estRappel" id="rapp-oui" value="OUI" onchange="toggleRappel()"><label for="rapp-oui">🔔 Oui</label>
+          <input type="radio" name="estRappel" id="rapp-non" value="NON" onchange="toggleRappel()" checked><label for="rapp-non">— Non</label>
         </div>
       </div>
 
@@ -761,19 +320,16 @@
         </div>
         <div class="field">
           <label>Type de rappel</label>
-          <div class="radio-row">
-            <input type="radio" name="typeRappel" id="tr-appel" value="Appel" checked>
-            <label for="tr-appel">📞 Appel</label>
-            <input type="radio" name="typeRappel" id="tr-sms" value="SMS">
-            <label for="tr-sms">💬 SMS</label>
-            <input type="radio" name="typeRappel" id="tr-mail" value="Mail">
-            <label for="tr-mail">✉️ Mail</label>
+          <div class="pill-group">
+            <input type="radio" name="typeRappel" id="tr-tel" value="Téléphone" checked><label for="tr-tel">📞 Téléphone</label>
+            <input type="radio" name="typeRappel" id="tr-wa" value="WhatsApp"><label for="tr-wa">💬 WhatsApp</label>
+            <input type="radio" name="typeRappel" id="tr-mail" value="Email"><label for="tr-mail">📧 Email</label>
           </div>
         </div>
         <div class="field">
           <label>Statut rappel</label>
           <select id="statutRappel">
-            <option value="À faire">À faire</option>
+            <option value="A faire">A faire</option>
             <option value="Fait">Fait</option>
             <option value="Annulé">Annulé</option>
           </select>
@@ -804,11 +360,10 @@
   </div>
 </div>
 
-<!-- ===================== VUE FICHE COMPLÈTE ===================== -->
+<!-- ===== FICHE COMPLÈTE ===== -->
 <div id="view-fiche" style="display:none;">
 
-  <!-- Nouvelle note (collapsible) -->
-  <div class="fiche-section" id="sec-note">
+  <div class="fiche-section open" id="sec-note">
     <div class="fiche-toggle" onclick="toggleSection('sec-note')">
       <div class="fiche-toggle-title">📝 Ajouter une note</div>
       <span class="fiche-toggle-arrow">▼</span>
@@ -816,84 +371,64 @@
     <div class="fiche-body">
       <div class="field" style="padding-top:0;">
         <label>Type de contact</label>
-        <div class="radio-row">
-          <input type="radio" name="typeContact2" id="tc2-appel" value="Appel" checked>
-          <label for="tc2-appel">📞 Appel</label>
-          <input type="radio" name="typeContact2" id="tc2-sms" value="SMS">
-          <label for="tc2-sms">💬 SMS</label>
-          <input type="radio" name="typeContact2" id="tc2-mail" value="Mail">
-          <label for="tc2-mail">✉️ Mail</label>
+        <div class="pill-group">
+          <input type="radio" name="typeContact2" id="tc2-tel" value="Téléphone" checked><label for="tc2-tel">📞 Tél</label>
+          <input type="radio" name="typeContact2" id="tc2-wa" value="WhatsApp"><label for="tc2-wa">💬 WA</label>
+          <input type="radio" name="typeContact2" id="tc2-sms" value="SMS"><label for="tc2-sms">SMS</label>
+          <input type="radio" name="typeContact2" id="tc2-mail" value="Email"><label for="tc2-mail">📧 Email</label>
+          <input type="radio" name="typeContact2" id="tc2-place" value="Sur place"><label for="tc2-place">👣 Sur place</label>
         </div>
       </div>
       <div class="field">
         <label>Contenu</label>
         <textarea id="contenuNote2" placeholder="Résumé de l'échange…"></textarea>
       </div>
-      <button class="btn-sm" style="background:var(--ocean);" onclick="submitSuiviFiche()">💾 Enregistrer</button>
+      <button class="btn-sm" style="background:var(--ocean);width:100%;" onclick="submitSuiviFiche()">💾 Enregistrer</button>
     </div>
   </div>
 
-  <!-- Rappels -->
   <div class="fiche-section open" id="sec-rappels">
     <div class="fiche-toggle" onclick="toggleSection('sec-rappels')">
-      <div class="fiche-toggle-title">🔔 Rappels</div>
+      <div class="fiche-toggle-title">🔔 Prochain rappel</div>
       <span class="fiche-toggle-arrow">▼</span>
     </div>
-    <div class="fiche-body">
-      <div id="prochainRappel" style="margin-bottom:10px;">
-        <div class="skeleton" style="width:60%;"></div>
-      </div>
-      <div class="rappels-list" id="rappelsList">
-        <div class="skeleton"></div>
-        <div class="skeleton" style="width:80%;margin-top:6px;"></div>
-      </div>
+    <div class="fiche-body" id="rappelBody">
+      <div class="skeleton"></div><div class="skeleton" style="width:70%;margin-top:6px;"></div>
     </div>
   </div>
 
-  <!-- Disponibilités -->
   <div class="fiche-section" id="sec-dispos">
     <div class="fiche-toggle" onclick="toggleSection('sec-dispos')">
       <div class="fiche-toggle-title">📅 Disponibilités</div>
       <span class="fiche-toggle-arrow">▼</span>
     </div>
-    <div class="fiche-body" id="disposBody">
-      <div class="skeleton"></div>
-    </div>
+    <div class="fiche-body" id="disposBody"><div class="skeleton"></div></div>
   </div>
 
-  <!-- Arrhes -->
   <div class="fiche-section" id="sec-arrhes">
     <div class="fiche-toggle" onclick="toggleSection('sec-arrhes')">
       <div class="fiche-toggle-title">💶 Arrhes</div>
       <span class="fiche-toggle-arrow">▼</span>
     </div>
     <div class="fiche-body">
-      <div id="arrhesContent">
-        <div class="skeleton" style="height:40px;"></div>
-      </div>
+      <div id="arrhesContent"><div class="skeleton" style="height:40px;"></div></div>
     </div>
   </div>
 
-  <!-- Contact -->
   <div class="fiche-section" id="sec-contact">
     <div class="fiche-toggle" onclick="toggleSection('sec-contact')">
       <div class="fiche-toggle-title">📱 Coordonnées</div>
       <span class="fiche-toggle-arrow">▼</span>
     </div>
-    <div class="fiche-body" id="contactBody">
-      <div class="skeleton"></div>
-    </div>
+    <div class="fiche-body" id="contactBody"><div class="skeleton"></div></div>
   </div>
 
-  <!-- Suivi général -->
   <div class="fiche-section" id="sec-suivi">
     <div class="fiche-toggle" onclick="toggleSection('sec-suivi')">
-      <div class="fiche-toggle-title">📊 Suivi & Historique</div>
+      <div class="fiche-toggle-title">📊 Suivi & Source</div>
       <span class="fiche-toggle-arrow">▼</span>
     </div>
-    <div class="fiche-body" id="suiviBody">
-      <div class="skeleton"></div>
-    </div>
+    <div class="fiche-body" id="suiviBody"><div class="skeleton"></div></div>
   </div>
 
   <div style="height:20px;"></div>
@@ -907,36 +442,28 @@ const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw7M3T6lQQ2SUNHa8GY
 let allProspects = [];
 let currentProspect = null;
 let searchTimeout = null;
+let autocompleteResults = [];
 
-// ===================== LOAD PROSPECTS =====================
+// ===== LOAD PROSPECTS =====
 async function loadProspects() {
   try {
     const res = await fetch(WEB_APP_URL + '?action=getProspects');
     const data = await res.json();
-    if (data && Array.isArray(data.prospects)) {
-      allProspects = data.prospects;
-    } else if (data && Array.isArray(data)) {
-      allProspects = data;
-    }
-  } catch (e) {
-    console.log('Prospects load error:', e);
-  }
+    if (data && Array.isArray(data.prospects)) allProspects = data.prospects;
+    else if (data && Array.isArray(data)) allProspects = data;
+  } catch (e) { console.log('Load error:', e); }
 }
-
 loadProspects();
 
-// ===================== SEARCH =====================
+// ===== SEARCH =====
 function handleSearch() {
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
   document.getElementById('searchClear').classList.toggle('visible', q.length > 0);
   clearTimeout(searchTimeout);
-  if (q.length < 1) {
-    hideAutocomplete();
-    return;
-  }
+  if (q.length < 1) { hideAutocomplete(); return; }
   searchTimeout = setTimeout(() => {
     const matches = allProspects.filter(p => {
-      const full = ((p.prenom || p.Prenom || '') + ' ' + (p.nom || p.Nom || '')).toLowerCase();
+      const full = (clean(p.prenom) + ' ' + clean(p.nom)).toLowerCase();
       return full.includes(q);
     }).slice(0, 8);
     showAutocomplete(matches);
@@ -944,38 +471,41 @@ function handleSearch() {
 }
 
 function handleSearchFocus() {
-  const q = document.getElementById('searchInput').value.trim();
-  if (q.length > 0) handleSearch();
+  if (document.getElementById('searchInput').value.trim().length > 0) handleSearch();
 }
 
+function clean(v) { return (v || '').toString().replace('#ERROR!', '').trim(); }
+
 function showAutocomplete(list) {
+  autocompleteResults = list;
   const el = document.getElementById('autocompleteList');
   if (list.length === 0) {
     el.innerHTML = '<div class="autocomplete-item"><div class="ac-name" style="color:var(--muted);">Aucun résultat</div></div>';
   } else {
-    el.innerHTML = list.map(p => {
-      const prenom = p.prenom || p.Prenom || '';
-      const nom = p.nom || p.Nom || '';
-      const statut = (p.statut || p.Statut || 'Nouveau').toString().replace('#ERROR!', 'Nouveau');
-      const tel = (p.telephone || p.Telephone || '').toString().replace('#ERROR!', '—');
-      const id = p.id || p.ID || p.Id || '';
-      const statutClean = (statut || 'Nouveau').replace('#ERROR!', 'Nouveau');
-      const prenomClean = prenom.replace('#ERROR!', '').trim();
-      const nomClean = nom.replace('#ERROR!', '').trim();
-      return `<div class="autocomplete-item" onclick="selectProspect(${JSON.stringify(JSON.stringify(p)).slice(1,-1)})">
+    el.innerHTML = list.map((p, idx) => {
+      const prenom = clean(p.prenom);
+      const nom = clean(p.nom);
+      const statut = clean(p.statut) || 'Nouveau prospect';
+      const tel = clean(p.telephone);
+      const cssStatut = statut.replace(/\s+/g, '-').replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u');
+      return `<div class="autocomplete-item" onclick="selectProspectByIndex(${idx})">
         <div>
-          <div class="ac-name">${prenomClean} ${nomClean}</div>
-          <div class="ac-info">${tel || 'Pas de tel'} · ${statutClean}</div>
+          <div class="ac-name">${prenom} ${nom}</div>
+          <div class="ac-info">${tel || 'Pas de tél'} · ${statut}</div>
         </div>
-        <span class="status-badge status-${statutClean}">${statutClean}</span>
+        <span class="status-badge status-${cssStatut}">${statut}</span>
       </div>`;
     }).join('');
   }
   el.classList.add('visible');
 }
 
-function hideAutocomplete() {
-  document.getElementById('autocompleteList').classList.remove('visible');
+function hideAutocomplete() { document.getElementById('autocompleteList').classList.remove('visible'); }
+
+function selectProspectByIndex(idx) {
+  const p = autocompleteResults[idx];
+  if (!p) return;
+  selectProspect(p);
 }
 
 function clearSearch() {
@@ -990,73 +520,48 @@ function clearSearch() {
   document.getElementById('prospectBand').classList.remove('visible');
 }
 
-function selectProspect(pJson) {
-  let p;
-  try {
-    p = JSON.parse(pJson);
-  } catch(e) {
-    p = pJson;
-  }
+function selectProspect(p) {
   currentProspect = p;
   hideAutocomplete();
-
-  const prenom = p.prenom || p.Prenom || '';
-  const nom = p.nom || p.Nom || '';
-  const statut = p.statut || p.Statut || 'Nouveau';
-  const tel = p.telephone || p.Telephone || '';
+  const prenom = clean(p.prenom);
+  const nom = clean(p.nom);
+  const statut = clean(p.statut) || 'Nouveau prospect';
+  const tel = clean(p.telephone);
+  const cssStatut = statut.replace(/\s+/g, '-').replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u');
 
   document.getElementById('searchInput').value = prenom + ' ' + nom;
-
-  // Band
   document.getElementById('bandName').textContent = prenom + ' ' + nom;
-  const telClean = (tel || '').toString().replace('#ERROR!', '');
-  document.getElementById('bandInfo').textContent = telClean || 'Pas de téléphone';
+  document.getElementById('bandInfo').textContent = tel || 'Pas de téléphone';
   document.getElementById('bandStatus').textContent = statut;
-  document.getElementById('bandStatus').className = 'status-badge status-' + statut;
+  document.getElementById('bandStatus').className = 'status-badge status-' + cssStatut;
   document.getElementById('prospectBand').classList.add('visible');
 
-  // Pre-fill statut
-  const statutSel = document.getElementById('newStatut');
-  if (statutSel) {
-    for (let opt of statutSel.options) {
-      if (opt.value === statut) { statutSel.value = statut; break; }
-    }
-  }
+  // Pré-remplir statut
+  const sel = document.getElementById('newStatut');
+  for (let opt of sel.options) { if (opt.value === statut) { sel.value = statut; break; } }
 
   document.getElementById('noProspectMsg').style.display = 'none';
   document.getElementById('modeTabs').style.display = 'grid';
   switchMode('rapide');
 }
 
-// Click outside to close
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('#searchCard')) hideAutocomplete();
-});
+document.addEventListener('click', e => { if (!e.target.closest('#searchCard')) hideAutocomplete(); });
 
-// ===================== MODE SWITCH =====================
+// ===== MODE =====
 function switchMode(mode) {
   document.getElementById('tab-rapide').classList.toggle('active', mode === 'rapide');
   document.getElementById('tab-fiche').classList.toggle('active', mode === 'fiche');
   document.getElementById('view-rapide').style.display = mode === 'rapide' ? 'block' : 'none';
   document.getElementById('view-fiche').style.display = mode === 'fiche' ? 'block' : 'none';
-
-  if (mode === 'fiche' && currentProspect) {
-    renderFiche(currentProspect);
-  }
+  if (mode === 'fiche' && currentProspect) renderFiche(currentProspect);
 }
 
-// ===================== TOGGLE RAPPEL =====================
+function toggleSection(id) { document.getElementById(id).classList.toggle('open'); }
 function toggleRappel() {
-  const isOui = document.getElementById('rapp-oui').checked;
-  document.getElementById('rappelFields').classList.toggle('visible', isOui);
+  document.getElementById('rappelFields').classList.toggle('visible', document.getElementById('rapp-oui').checked);
 }
 
-// ===================== COLLAPSIBLE SECTIONS =====================
-function toggleSection(id) {
-  document.getElementById(id).classList.toggle('open');
-}
-
-// ===================== TOAST =====================
+// ===== TOAST =====
 function showToast(msg, type = 'success') {
   const t = document.getElementById('toast');
   t.textContent = (type === 'success' ? '✓ ' : type === 'warn' ? '⚠ ' : '✗ ') + msg;
@@ -1064,231 +569,218 @@ function showToast(msg, type = 'success') {
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-// ===================== POST SUIVI =====================
+// ===== APPEL API =====
+async function apiGet(params) {
+  await fetch(WEB_APP_URL + '?' + new URLSearchParams(params).toString(), { method: 'GET', mode: 'no-cors' });
+}
+
+function pid() { return currentProspect?.id || currentProspect?.ID || ''; }
+function pprenom() { return clean(currentProspect?.prenom); }
+function pnom() { return clean(currentProspect?.nom); }
+
+// ===== SUIVI =====
 async function submitSuivi() {
   if (!currentProspect) { showToast('Aucun prospect sélectionné', 'warn'); return; }
-
   const contenu = document.getElementById('contenuNote').value.trim();
   if (!contenu) { showToast('Contenu obligatoire', 'warn'); return; }
-
   const isRappel = document.getElementById('rapp-oui').checked;
-
-  const payload = {
-    action: 'addSuivi',
-    prospectId: currentProspect.id || currentProspect.ID || currentProspect.Id || '',
-    prenom: currentProspect.prenom || currentProspect.Prenom || '',
-    nom: currentProspect.nom || currentProspect.Nom || '',
-    typeContact: document.querySelector('input[name="typeContact"]:checked')?.value || '',
-    contenu,
-    estRappel: isRappel ? 'Oui' : 'Non',
-    dateEcheance: isRappel ? document.getElementById('dateEcheance').value : '',
-    typeRappel: isRappel ? (document.querySelector('input[name="typeRappel"]:checked')?.value || '') : '',
-    statutRappel: isRappel ? document.getElementById('statutRappel').value : '',
-    suiteADonner: document.getElementById('suiteADonner').value,
-  };
 
   const btn = document.getElementById('btnSuivi');
   btn.classList.add('loading'); btn.disabled = true;
-
   try {
-    await fetch(WEB_APP_URL + '?' + new URLSearchParams(payload).toString(), {
-      method: 'GET', mode: 'no-cors'
+    await apiGet({
+      action: 'addSuivi',
+      prospectId: pid(), prenom: pprenom(), nom: pnom(),
+      typeContact: document.querySelector('input[name="typeContact"]:checked')?.value || 'Téléphone',
+      contenu,
+      estRappel: isRappel ? 'OUI' : 'NON',
+      dateEcheance: isRappel ? document.getElementById('dateEcheance').value : '',
+      typeRappel: isRappel ? (document.querySelector('input[name="typeRappel"]:checked')?.value || '') : '',
+      statutRappel: isRappel ? document.getElementById('statutRappel').value : '',
+      suiteADonner: document.getElementById('suiteADonner').value,
+      creePar: 'Widget',
     });
     showToast('Note enregistrée !', 'success');
     document.getElementById('contenuNote').value = '';
     document.getElementById('rapp-non').checked = true;
     toggleRappel();
     document.getElementById('suiteADonner').value = '';
-  } catch (e) {
-    showToast('Erreur réseau', 'error');
-  } finally {
-    btn.classList.remove('loading'); btn.disabled = false;
-  }
+  } catch (e) { showToast('Erreur réseau', 'error'); }
+  finally { btn.classList.remove('loading'); btn.disabled = false; }
 }
 
 async function submitSuiviFiche() {
   if (!currentProspect) return;
   const contenu = document.getElementById('contenuNote2').value.trim();
   if (!contenu) { showToast('Contenu obligatoire', 'warn'); return; }
-
-  const payload = {
-    action: 'addSuivi',
-    prospectId: currentProspect.id || currentProspect.ID || currentProspect.Id || '',
-    prenom: currentProspect.prenom || currentProspect.Prenom || '',
-    nom: currentProspect.nom || currentProspect.Nom || '',
-    typeContact: document.querySelector('input[name="typeContact2"]:checked')?.value || '',
-    contenu,
-    estRappel: 'Non',
-  };
-
   try {
-    await fetch(WEB_APP_URL + '?' + new URLSearchParams(payload).toString(), {
-      method: 'GET', mode: 'no-cors'
+    await apiGet({
+      action: 'addSuivi',
+      prospectId: pid(), prenom: pprenom(), nom: pnom(),
+      typeContact: document.querySelector('input[name="typeContact2"]:checked')?.value || 'Téléphone',
+      contenu, estRappel: 'NON', creePar: 'Widget',
     });
     showToast('Note enregistrée !', 'success');
     document.getElementById('contenuNote2').value = '';
-  } catch (e) {
-    showToast('Erreur réseau', 'error');
-  }
+  } catch (e) { showToast('Erreur réseau', 'error'); }
 }
 
-// ===================== UPDATE STATUT =====================
+// ===== UPDATE STATUT =====
 async function updateStatut() {
   if (!currentProspect) { showToast('Aucun prospect', 'warn'); return; }
   const newStatut = document.getElementById('newStatut').value;
   if (!newStatut) { showToast('Choisir un statut', 'warn'); return; }
-
-  const payload = {
-    action: 'updateStatut',
-    prospectId: currentProspect.id || currentProspect.ID || currentProspect.Id || '',
-    prenom: currentProspect.prenom || currentProspect.Prenom || '',
-    nom: currentProspect.nom || currentProspect.Nom || '',
-    statut: newStatut,
-  };
-
   try {
-    await fetch(WEB_APP_URL + '?' + new URLSearchParams(payload).toString(), {
-      method: 'GET', mode: 'no-cors'
-    });
-    // Update local
+    await apiGet({ action: 'updateStatut', prospectId: pid(), statut: newStatut });
     currentProspect.statut = newStatut;
-    currentProspect.Statut = newStatut;
+    const cssStatut = newStatut.replace(/\s+/g, '-').replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u');
     document.getElementById('bandStatus').textContent = newStatut;
-    document.getElementById('bandStatus').className = 'status-badge status-' + newStatut;
+    document.getElementById('bandStatus').className = 'status-badge status-' + cssStatut;
     showToast('Statut mis à jour : ' + newStatut, 'success');
-  } catch (e) {
-    showToast('Erreur réseau', 'error');
-  }
+  } catch (e) { showToast('Erreur réseau', 'error'); }
 }
 
-// ===================== RENDER FICHE =====================
-function renderFiche(p) {
-  const get = (keys) => {
-    for (const k of keys) {
-      const v = p[k] || p[k.charAt(0).toUpperCase() + k.slice(1)];
-      if (v !== undefined && v !== null && v !== '') return v;
-    }
-    return '—';
-  };
+// ===== RENDER FICHE =====
+function get(p, keys) {
+  for (const k of keys) {
+    const v = p[k];
+    if (v !== undefined && v !== null && v !== '' && !String(v).includes('#ERROR!')) return String(v);
+  }
+  return '—';
+}
 
-  // Rappels
-  const prochainRappelEl = document.getElementById('prochainRappel');
-  const rappelDate = get(['dateEcheance', 'DateEcheance', 'prochainRappel', 'ProchainRappel']);
-  if (rappelDate && rappelDate !== '—') {
-    prochainRappelEl.innerHTML = `<div class="rappel-item"><div class="rappel-date">📅 Prochain rappel : ${rappelDate}</div><div class="rappel-type">${get(['typeRappel','TypeRappel'])}</div></div>`;
+function renderFiche(p) {
+  // Rappel
+  const rappelDate = get(p, ['prochainRappel','ProchainRappel']);
+  const rappelEl = document.getElementById('rappelBody');
+  if (rappelDate !== '—') {
+    rappelEl.innerHTML = `<div class="rappel-item"><div class="rappel-date">📅 ${rappelDate}</div><div class="rappel-type">Prochain rappel programmé</div></div>`;
   } else {
-    prochainRappelEl.innerHTML = `<div style="font-size:13px;color:var(--muted);">Aucun rappel programmé</div>`;
+    rappelEl.innerHTML = `<div style="font-size:13px;color:var(--muted);text-align:center;padding:6px 0;">Aucun rappel programmé</div>`;
   }
 
-  // Rappels list (from Suivi sheet — would need separate call, show placeholder)
-  document.getElementById('rappelsList').innerHTML = `<div style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0;">Historique rappels disponible dans le Sheet</div>`;
-
   // Disponibilités
-  const typeProfil = get(['typeProfil','TypeProfil']);
-  const activites = get(['activites','Activites']);
-  const jours = get(['joursDispo','JoursDispo']);
-  const dateD = get(['dateDebut','DateDebut']);
-  const dateF = get(['dateFin','DateFin']);
+  const typeProfil = get(p, ['typeProfil','TypeProfil']);
+  const activites = get(p, ['activites','Activites']);
+  const dateD = get(p, ['dateDebut','DateDebut']);
+  const dateF = get(p, ['dateFin','DateFin']);
+  const commentDispo = get(p, ['commentaireDispo','CommentaireDispo']);
 
   let dispoHtml = `<div class="fiche-row"><span class="fiche-label">Profil</span><span class="fiche-value">${typeProfil}</span></div>`;
-  if (activites && activites !== '—') {
-    const acts = activites.split(',').map(a => `<span class="pill">${a.trim()}</span>`).join('');
-    dispoHtml += `<div class="fiche-row"><span class="fiche-label">Activités</span><span class="fiche-value">${acts}</span></div>`;
+  if (activites !== '—') {
+    const acts = activites.split(',').map(a => `<span class="pill-tag">${a.trim()}</span>`).join('');
+    dispoHtml += `<div class="fiche-row"><span class="fiche-label">Activités</span><span class="fiche-value" style="text-align:right;">${acts}</span></div>`;
+  }
+
+  // Jours dispo
+  const joursList = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  const joursOui = joursList.filter(j => (p['Dispo'+j] || p['dispo'+j] || '') === 'OUI');
+  if (joursOui.length > 0) {
+    const tags = joursOui.map(j => `<span class="pill-tag">${j.substring(0,3)}</span>`).join('');
+    dispoHtml += `<div class="fiche-row"><span class="fiche-label">Jours</span><span class="fiche-value">${tags}</span></div>`;
   }
   if (typeProfil === 'Touriste') {
     dispoHtml += `<div class="fiche-row"><span class="fiche-label">Séjour</span><span class="fiche-value">${dateD} → ${dateF}</span></div>`;
-  } else if (jours && jours !== '—') {
-    dispoHtml += `<div class="fiche-row"><span class="fiche-label">Jours</span><span class="fiche-value">${jours}</span></div>`;
   }
-
+  if (commentDispo !== '—') {
+    dispoHtml += `<div style="margin-top:8px;background:#f9fafb;border-radius:8px;padding:9px 11px;font-size:13px;color:var(--muted);">${commentDispo}</div>`;
+  }
   document.getElementById('disposBody').innerHTML = dispoHtml;
 
   // Arrhes
-  const montantArrhes = get(['montantArrhes','MontantArrhes','arrhes','Arrhes']);
-  const statutArrhes = get(['statutArrhes','StatutArrhes']);
-  let arrhesHtml = '';
-  if (montantArrhes && montantArrhes !== '—') {
-    arrhesHtml = `<div class="arrhes-amount">${montantArrhes} €</div><div class="arrhes-status"><span class="status-badge status-${statutArrhes}">${statutArrhes}</span></div>`;
-  } else {
-    arrhesHtml = `<div style="text-align:center;color:var(--muted);font-size:14px;padding:8px 0;">Aucune arrhe enregistrée</div>`;
-  }
+  renderArrhes(p);
 
-  // Nouvel événement arrhes
-  arrhesHtml += `
-    <div class="event-form" id="eventForm" style="display:none;">
-      <input type="number" id="evtMontant" placeholder="Montant (€)">
-      <input type="date" id="evtDate">
-      <select id="evtType">
-        <option value="Cours kite">Cours kite</option>
-        <option value="Cours wing-foil">Cours wing-foil</option>
-        <option value="Cours E-foil">Cours E-foil</option>
-        <option value="Cours paddle">Cours paddle</option>
-        <option value="Stage">Stage</option>
-      </select>
-      <input type="text" id="evtCommentaire" placeholder="Commentaire…">
-      <button class="btn-sm" onclick="submitEvenement()">💾 Créer événement</button>
-    </div>
-    <button class="btn-sm" style="width:100%;margin-top:10px;background:var(--ocean);" onclick="document.getElementById('eventForm').style.display=document.getElementById('eventForm').style.display==='none'?'block':'none'">➕ Nouvel événement arrhes</button>
-  `;
-  document.getElementById('arrhesContent').innerHTML = arrhesHtml;
-
-  // Contact
-  const tel = get(['telephone','Telephone']);
-  const email = get(['email','Email']);
+  // Coordonnées
+  const tel = get(p, ['telephone','Telephone']);
+  const email = get(p, ['email','Email']);
+  const cp = get(p, ['codePostal','CodePostal']);
+  const ville = get(p, ['ville','Ville']);
+  const pays = get(p, ['pays','Pays']);
   let contactHtml = '';
-  if (tel !== '—') contactHtml += `<div class="fiche-row"><span class="fiche-label">Tél</span><span class="fiche-value"><a href="tel:${tel}" style="color:var(--ocean);font-weight:600;">${tel}</a></span></div>`;
+  if (tel !== '—') contactHtml += `<div class="fiche-row"><span class="fiche-label">Tél</span><span class="fiche-value"><a href="tel:${tel}" style="color:var(--ocean);font-weight:700;">${tel}</a></span></div>`;
   if (email !== '—') contactHtml += `<div class="fiche-row"><span class="fiche-label">Email</span><span class="fiche-value"><a href="mailto:${email}" style="color:var(--ocean);font-size:13px;">${email}</a></span></div>`;
-  if (!contactHtml) contactHtml = '<div style="color:var(--muted);font-size:13px;">Aucune coordonnée</div>';
+  if (cp !== '—' || ville !== '—') contactHtml += `<div class="fiche-row"><span class="fiche-label">Ville</span><span class="fiche-value">${[cp,ville,pays].filter(v=>v!=='—').join(' · ')}</span></div>`;
+  if (!contactHtml) contactHtml = '<div style="color:var(--muted);font-size:13px;text-align:center;">Aucune coordonnée</div>';
   document.getElementById('contactBody').innerHTML = contactHtml;
 
   // Suivi
-  const source = get(['source','Source']);
-  const sourceDetail = get(['sourceDetail','SourceDetail']);
-  const nbInteractions = get(['nbInteractions','NbInteractions']);
-  const dateDernierContact = get(['dateDernierContact','DateDernierContact']);
-  const commentaire = get(['commentaire','Commentaire']);
-
+  const source = get(p, ['source','Source']);
+  const sourceDetail = get(p, ['sourceDetail','SourceDetail']);
+  const nb = get(p, ['nbInteractions','NbInteractions']);
+  const dernierContact = get(p, ['dateDernierContact','DateDernierContact']);
+  const commentaire = get(p, ['commentaire','Commentaire']);
   let suiviHtml = `
-    <div class="fiche-row"><span class="fiche-label">Source</span><span class="fiche-value">${source}${sourceDetail && sourceDetail!=='—' ? ' · '+sourceDetail : ''}</span></div>
-    <div class="fiche-row"><span class="fiche-label">Interactions</span><span class="fiche-value">${nbInteractions}</span></div>
-    <div class="fiche-row"><span class="fiche-label">Dernier contact</span><span class="fiche-value">${dateDernierContact}</span></div>
+    <div class="fiche-row"><span class="fiche-label">Source</span><span class="fiche-value">${source}${sourceDetail !== '—' ? ' · ' + sourceDetail : ''}</span></div>
+    <div class="fiche-row"><span class="fiche-label">Interactions</span><span class="fiche-value">${nb}</span></div>
+    <div class="fiche-row"><span class="fiche-label">Dernier contact</span><span class="fiche-value">${dernierContact}</span></div>
   `;
-  if (commentaire && commentaire !== '—') {
-    suiviHtml += `<div style="margin-top:10px;background:#f9fafb;border-radius:8px;padding:10px 12px;font-size:13px;color:var(--deep);line-height:1.5;">${commentaire}</div>`;
-  }
+  if (commentaire !== '—') suiviHtml += `<div style="margin-top:8px;background:#f9fafb;border-radius:8px;padding:9px 11px;font-size:13px;color:var(--deep);line-height:1.5;">${commentaire}</div>`;
   document.getElementById('suiviBody').innerHTML = suiviHtml;
 }
 
-// ===================== CRÉER ÉVÉNEMENT ARRHES =====================
-async function submitEvenement() {
-  if (!currentProspect) return;
-  const montant = document.getElementById('evtMontant').value;
-  const date = document.getElementById('evtDate').value;
-  const type = document.getElementById('evtType').value;
-  const commentaire = document.getElementById('evtCommentaire').value;
+function renderArrhes(p) {
+  const montant = get(p, ['montantArrhes','MontantArrhes']);
+  const statutArrhe = get(p, ['statutArrhes','StatutArrhes','StatutArrhe']);
 
-  if (!montant || !date) { showToast('Montant et date obligatoires', 'warn'); return; }
-
-  const payload = {
-    action: 'addEvtArrhe',
-    prospectId: currentProspect.id || currentProspect.ID || currentProspect.Id || '',
-    prenom: currentProspect.prenom || currentProspect.Prenom || '',
-    nom: currentProspect.nom || currentProspect.Nom || '',
-    montant, date, typeEvt: type, commentaire,
+  const badgeClass = {
+    'Demandé': 'badge-demande', 'Reçu': 'badge-recu',
+    'À rembourser': 'badge-rembourser', 'Remboursé': 'badge-rembourse', 'À conserver': 'badge-conserver'
   };
 
-  try {
-    await fetch(WEB_APP_URL + '?' + new URLSearchParams(payload).toString(), {
-      method: 'GET', mode: 'no-cors'
-    });
-    showToast('Événement créé !', 'success');
-    document.getElementById('evtMontant').value = '';
-    document.getElementById('evtDate').value = '';
-    document.getElementById('evtCommentaire').value = '';
-    document.getElementById('eventForm').style.display = 'none';
-  } catch (e) {
-    showToast('Erreur réseau', 'error');
+  let html = '';
+  if (montant !== '—') {
+    html += `<div class="arrhes-amount">${montant} €</div>
+    <div class="arrhes-status"><span class="status-badge ${badgeClass[statutArrhe] || ''}">${statutArrhe}</span></div>`;
+  } else {
+    html += `<div style="text-align:center;color:var(--muted);font-size:14px;padding:8px 0;">Aucune arrhe enregistrée</div>`;
   }
+
+  html += `
+    <div class="event-form" id="eventForm" style="display:none;">
+      <select id="evtStatut" style="font-size:14px;padding:9px 12px;">
+        <option value="Demandé">Demandé</option>
+        <option value="Reçu">Reçu</option>
+        <option value="À rembourser">À rembourser</option>
+        <option value="Remboursé">Remboursé</option>
+        <option value="À conserver">À conserver</option>
+      </select>
+      <input type="number" id="evtMontant" placeholder="Montant (€)" value="50" style="font-size:14px;padding:9px 12px;">
+      <select id="evtMode" style="font-size:14px;padding:9px 12px;">
+        <option value="SumUp">SumUp</option>
+        <option value="Zettle">Zettle</option>
+        <option value="Chèque">Chèque</option>
+        <option value="Espèces">Espèces</option>
+        <option value="Virement">Virement</option>
+        <option value="ANCV">ANCV</option>
+      </select>
+      <input type="text" id="evtCommentaire" placeholder="Commentaire…" style="font-size:14px;padding:9px 12px;">
+      <button class="btn-sm" style="width:100%;" onclick="submitArrhe()">💾 Enregistrer</button>
+    </div>
+    <button class="btn-sm" style="width:100%;margin-top:10px;background:var(--ocean);"
+      onclick="document.getElementById('eventForm').style.display=document.getElementById('eventForm').style.display==='none'?'block':'none'">
+      💶 ${montant !== '—' ? 'Modifier les arrhes' : 'Créer des arrhes'}
+    </button>
+  `;
+  document.getElementById('arrhesContent').innerHTML = html;
+}
+
+async function submitArrhe() {
+  if (!currentProspect) return;
+  const montant = document.getElementById('evtMontant').value;
+  const statut = document.getElementById('evtStatut').value;
+  if (!montant) { showToast('Montant obligatoire', 'warn'); return; }
+
+  try {
+    await apiGet({
+      action: 'addArrhe',
+      prospectId: pid(), prenom: pprenom(), nom: pnom(),
+      montant, statut,
+      modeEncaissement: document.getElementById('evtMode').value,
+      commentaire: document.getElementById('evtCommentaire').value,
+    });
+    showToast('Arrhe enregistrée !', 'success');
+    document.getElementById('eventForm').style.display = 'none';
+  } catch (e) { showToast('Erreur réseau', 'error'); }
 }
 </script>
 </body>

@@ -9,360 +9,128 @@
 <title>KiteSchool Leucate — Nouveau Prospect</title>
 <style>
   :root {
-    --ocean: #0077b6;
-    --sky: #00b4d8;
-    --sand: #f4f1e8;
-    --foam: #ffffff;
-    --deep: #03045e;
-    --accent: #f77f00;
-    --muted: #6b7280;
-    --border: #d1d5db;
-    --danger: #ef4444;
-    --success: #22c55e;
-    --radius: 14px;
+    --ocean: #0077b6; --sky: #00b4d8; --sand: #f4f1e8; --deep: #03045e;
+    --accent: #f77f00; --muted: #6b7280; --border: #d1d5db;
+    --danger: #ef4444; --success: #22c55e; --radius: 14px;
     --shadow: 0 2px 12px rgba(0,119,182,0.10);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
   body {
     font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     background: linear-gradient(160deg, #e8f4fd 0%, #f4f1e8 100%);
-    min-height: 100vh;
-    padding-bottom: 40px;
+    min-height: 100vh; padding-bottom: 40px;
   }
-
   header {
     background: linear-gradient(135deg, var(--deep) 0%, var(--ocean) 100%);
-    color: white;
-    padding: 52px 20px 20px;
-    text-align: center;
+    color: white; padding: 52px 20px 20px; text-align: center;
   }
-
-  header .logo {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.7;
-    margin-bottom: 6px;
-  }
-
-  header h1 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
-  header h1 span {
-    color: var(--sky);
-  }
-
-  .form-card {
-    background: white;
-    margin: 16px 12px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
+  header .logo { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px; }
+  header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  header h1 span { color: var(--sky); }
+  .form-card { background: white; margin: 14px 12px; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
   .section-title {
-    background: var(--sand);
-    padding: 10px 16px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--deep);
-    border-bottom: 1px solid var(--border);
+    background: var(--sand); padding: 10px 16px; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--deep); border-bottom: 1px solid var(--border);
   }
-
-  .field-group {
-    padding: 0 16px;
-  }
-
-  .field {
-    padding: 14px 0;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
+  .field-group { padding: 0 16px; }
+  .field { padding: 13px 0; border-bottom: 1px solid #f0f0f0; }
   .field:last-child { border-bottom: none; }
-
-  .field label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 6px;
+  .field > label {
+    display: block; font-size: 11px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px;
   }
-
-  .field label.required::after {
-    content: ' *';
-    color: var(--danger);
+  .sublabel { font-size: 11px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 4px; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 16px; font-family: inherit; color: var(--deep); background: #fafafa;
+    appearance: none; -webkit-appearance: none; transition: border-color 0.2s, box-shadow 0.2s;
   }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="date"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--deep);
-    background: #fafafa;
-    appearance: none;
-    -webkit-appearance: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
   input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--ocean);
-    box-shadow: 0 0 0 3px rgba(0,119,182,0.12);
-    background: white;
+    outline: none; border-color: var(--ocean); box-shadow: 0 0 0 3px rgba(0,119,182,0.12); background: white;
   }
-
   select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 40px;
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px;
   }
-
-  textarea { resize: none; min-height: 90px; }
-
+  textarea { resize: none; min-height: 70px; }
   .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
-  /* Profil toggle */
-  .toggle-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
+  .toggle-group { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
   .toggle-group input { display: none; }
-
   .toggle-group label {
-    padding: 12px 8px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0;
-    text-transform: none;
-    letter-spacing: 0;
+    padding: 12px 8px; text-align: center; font-size: 14px; font-weight: 600;
+    color: var(--muted); cursor: pointer; transition: all 0.2s; margin: 0; text-transform: none; letter-spacing: 0;
   }
+  .toggle-group input:checked + label { background: var(--ocean); color: white; }
 
-  .toggle-group input:checked + label {
-    background: var(--ocean);
-    color: white;
-  }
-
-  /* Activités checkboxes */
-  .activities-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
+  .activities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .act-item { display: none; }
-
   .act-item + label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--deep);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0;
-    text-transform: none;
-    letter-spacing: 0;
+    display: flex; align-items: center; gap: 8px; padding: 10px 12px;
+    border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500;
+    color: var(--deep); cursor: pointer; transition: all 0.2s; margin: 0; text-transform: none; letter-spacing: 0;
   }
-
   .act-item + label::before {
-    content: '';
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
-    transition: all 0.2s;
-    background: white;
+    content: ''; width: 18px; height: 18px; border: 1.5px solid var(--border);
+    border-radius: 5px; flex-shrink: 0; transition: all 0.2s; background: white;
   }
-
-  .act-item:checked + label {
-    border-color: var(--ocean);
-    background: #e8f4fd;
-    color: var(--ocean);
-  }
-
+  .act-item:checked + label { border-color: var(--ocean); background: #e8f4fd; color: var(--ocean); }
   .act-item:checked + label::before {
-    background: var(--ocean);
-    border-color: var(--ocean);
+    background: var(--ocean); border-color: var(--ocean);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-repeat: no-repeat; background-position: center;
   }
 
-  /* Source */
-  .source-detail { display: none; margin-top: 10px; }
-  .source-detail.visible { display: block; }
-
-  /* Jours dispo */
-  .jours-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-  }
-
+  .jours-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
   .jour-item { display: none; }
-
   .jour-item + label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    padding: 0;
+    display: flex; justify-content: center; align-items: center; aspect-ratio: 1;
+    border: 1.5px solid var(--border); border-radius: 8px; font-size: 11px; font-weight: 700;
+    color: var(--muted); cursor: pointer; transition: all 0.2s; margin: 0; text-transform: uppercase; padding: 0;
   }
+  .jour-item:checked + label { background: var(--ocean); border-color: var(--ocean); color: white; }
 
-  .jour-item:checked + label {
-    background: var(--ocean);
-    border-color: var(--ocean);
-    color: white;
-  }
-
-  /* Sections conditionnelles */
   .conditional { display: none; }
   .conditional.visible { display: block; }
+  .source-detail { display: none; padding-top: 10px; }
+  .source-detail.visible { display: block; }
 
-  /* Proposer créneaux */
-  .radio-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
+  .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .radio-group input { display: none; }
-
   .radio-group label {
-    padding: 10px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0;
-    text-transform: none;
-    letter-spacing: 0;
+    padding: 10px 8px; border: 1.5px solid var(--border); border-radius: 8px; text-align: center;
+    font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.2s;
+    margin: 0; text-transform: none; letter-spacing: 0;
   }
+  .radio-group input:checked + label { border-color: var(--ocean); background: #e8f4fd; color: var(--ocean); }
 
-  .radio-group input:checked + label {
-    border-color: var(--accent);
-    background: #fff4e6;
-    color: var(--accent);
-  }
-
-  /* Submit button */
-  .submit-area {
-    padding: 20px 12px 10px;
-  }
-
+  .submit-area { padding: 18px 12px 10px; }
   .btn-submit {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--ocean) 0%, var(--sky) 100%);
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-size: 17px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    box-shadow: 0 4px 20px rgba(0,119,182,0.35);
-    transition: transform 0.15s, box-shadow 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    width: 100%; padding: 16px; background: linear-gradient(135deg, var(--ocean) 0%, var(--sky) 100%);
+    color: white; border: none; border-radius: 14px; font-size: 17px; font-weight: 700;
+    font-family: inherit; cursor: pointer; box-shadow: 0 4px 20px rgba(0,119,182,0.35);
+    transition: transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px;
   }
-
-  .btn-submit:active { transform: scale(0.98); box-shadow: 0 2px 10px rgba(0,119,182,0.2); }
+  .btn-submit:active { transform: scale(0.98); }
   .btn-submit:disabled { opacity: 0.6; pointer-events: none; }
-
-  /* Toast */
   .toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--deep);
-    color: white;
-    padding: 14px 24px;
-    border-radius: 40px;
-    font-size: 15px;
-    font-weight: 600;
-    white-space: nowrap;
-    z-index: 999;
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--deep); color: white; padding: 14px 24px; border-radius: 40px;
+    font-size: 15px; font-weight: 600; white-space: nowrap; z-index: 999;
     transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
-
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--success); }
   .toast.error { background: var(--danger); }
-
-  /* Loader */
   .spinner {
-    width: 20px; height: 20px;
-    border: 2.5px solid rgba(255,255,255,0.4);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
+    width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.4);
+    border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
   }
-
   .btn-submit.loading .spinner { display: block; }
   .btn-submit.loading .btn-text { display: none; }
-
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .field-hint {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 5px;
-  }
 </style>
 </head>
 <body>
@@ -376,33 +144,52 @@
 <div class="form-card">
   <div class="section-title">Identité</div>
   <div class="field-group">
-    <div class="row-2">
-      <div class="field">
-        <label class="required">Prénom</label>
-        <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name">
-      </div>
-      <div class="field">
-        <label class="required">Nom</label>
-        <input type="text" id="nom" placeholder="Nom" autocomplete="family-name">
+    <div class="field">
+      <div class="row-2">
+        <div>
+          <span class="sublabel">PRÉNOM *</span>
+          <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name">
+        </div>
+        <div>
+          <span class="sublabel">NOM *</span>
+          <input type="text" id="nom" placeholder="Nom" autocomplete="family-name">
+        </div>
       </div>
     </div>
     <div class="field">
       <label>Téléphone</label>
-      <input type="tel" id="telephone" placeholder="06 xx xx xx xx" autocomplete="tel">
+      <input type="tel" id="telephone" placeholder="+33 6 xx xx xx xx" autocomplete="tel">
     </div>
     <div class="field">
       <label>Email</label>
       <input type="email" id="email" placeholder="email@exemple.com" autocomplete="email">
     </div>
+    <div class="field">
+      <label>Localisation</label>
+      <div class="row-3">
+        <div>
+          <span class="sublabel">CODE POSTAL</span>
+          <input type="text" id="codePostal" placeholder="66420" style="font-size:15px;padding:10px 12px;">
+        </div>
+        <div>
+          <span class="sublabel">VILLE</span>
+          <input type="text" id="ville" placeholder="Leucate" style="font-size:15px;padding:10px 12px;">
+        </div>
+        <div>
+          <span class="sublabel">PAYS</span>
+          <input type="text" id="pays" value="France" style="font-size:15px;padding:10px 12px;">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Profil -->
+<!-- Profil & Disponibilités -->
 <div class="form-card">
-  <div class="section-title">Profil</div>
+  <div class="section-title">Profil & Disponibilités</div>
   <div class="field-group">
     <div class="field">
-      <label class="required">Type de profil</label>
+      <label>Type de profil *</label>
       <div class="toggle-group">
         <input type="radio" name="typeProfil" id="surplace" value="Sur place" checked>
         <label for="surplace">📍 Sur place</label>
@@ -411,40 +198,30 @@
       </div>
     </div>
 
-    <!-- Jours dispo (Sur place) -->
     <div class="field conditional visible" id="block-jours">
       <label>Jours disponibles</label>
       <div class="jours-grid">
-        <input class="jour-item" type="checkbox" id="j-lun" value="Lundi">
-        <label for="j-lun">Lun</label>
-        <input class="jour-item" type="checkbox" id="j-mar" value="Mardi">
-        <label for="j-mar">Mar</label>
-        <input class="jour-item" type="checkbox" id="j-mer" value="Mercredi">
-        <label for="j-mer">Mer</label>
-        <input class="jour-item" type="checkbox" id="j-jeu" value="Jeudi">
-        <label for="j-jeu">Jeu</label>
-        <input class="jour-item" type="checkbox" id="j-ven" value="Vendredi">
-        <label for="j-ven">Ven</label>
-        <input class="jour-item" type="checkbox" id="j-sam" value="Samedi">
-        <label for="j-sam">Sam</label>
-        <input class="jour-item" type="checkbox" id="j-dim" value="Dimanche">
-        <label for="j-dim">Dim</label>
+        <input class="jour-item" type="checkbox" id="j-lun" value="Lundi"><label for="j-lun">Lun</label>
+        <input class="jour-item" type="checkbox" id="j-mar" value="Mardi"><label for="j-mar">Mar</label>
+        <input class="jour-item" type="checkbox" id="j-mer" value="Mercredi"><label for="j-mer">Mer</label>
+        <input class="jour-item" type="checkbox" id="j-jeu" value="Jeudi"><label for="j-jeu">Jeu</label>
+        <input class="jour-item" type="checkbox" id="j-ven" value="Vendredi"><label for="j-ven">Ven</label>
+        <input class="jour-item" type="checkbox" id="j-sam" value="Samedi"><label for="j-sam">Sam</label>
+        <input class="jour-item" type="checkbox" id="j-dim" value="Dimanche"><label for="j-dim">Dim</label>
       </div>
     </div>
 
-    <!-- Dates (Touriste) -->
     <div class="field conditional" id="block-dates">
       <label>Période de séjour</label>
       <div class="row-2">
-        <div>
-          <label style="font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px;">Arrivée</label>
-          <input type="date" id="dateDebut">
-        </div>
-        <div>
-          <label style="font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px;">Départ</label>
-          <input type="date" id="dateFin">
-        </div>
+        <div><span class="sublabel">ARRIVÉE</span><input type="date" id="dateDebut"></div>
+        <div><span class="sublabel">DÉPART</span><input type="date" id="dateFin"></div>
       </div>
+    </div>
+
+    <div class="field">
+      <label>Précisions disponibilités</label>
+      <textarea id="commentaireDispo" placeholder="Ex : matin uniquement, préfère weekend…" style="min-height:60px;"></textarea>
     </div>
   </div>
 </div>
@@ -455,18 +232,12 @@
   <div class="field-group">
     <div class="field">
       <div class="activities-grid">
-        <input class="act-item" type="checkbox" id="act-kite" value="Kite">
-        <label for="act-kite">🪁 Kite</label>
-        <input class="act-item" type="checkbox" id="act-wing" value="Wing-foil">
-        <label for="act-wing">🏄 Wing-foil</label>
-        <input class="act-item" type="checkbox" id="act-efoil" value="E-foil">
-        <label for="act-efoil">⚡ E-foil</label>
-        <input class="act-item" type="checkbox" id="act-paddle" value="Paddle">
-        <label for="act-paddle">🚣 Paddle</label>
-        <input class="act-item" type="checkbox" id="act-simufoil" value="Simu foil">
-        <label for="act-simufoil">🎮 Simu foil</label>
-        <input class="act-item" type="checkbox" id="act-simukite" value="Simu kite">
-        <label for="act-simukite">🎮 Simu kite</label>
+        <input class="act-item" type="checkbox" id="act-kite" value="Kite"><label for="act-kite">🪁 Kite</label>
+        <input class="act-item" type="checkbox" id="act-wing" value="Wing-foil"><label for="act-wing">🏄 Wing-foil</label>
+        <input class="act-item" type="checkbox" id="act-efoil" value="E-foil"><label for="act-efoil">⚡ E-foil</label>
+        <input class="act-item" type="checkbox" id="act-paddle" value="Paddle"><label for="act-paddle">🚣 Paddle</label>
+        <input class="act-item" type="checkbox" id="act-simufoil" value="Simu foil"><label for="act-simufoil">🎮 Simu foil</label>
+        <input class="act-item" type="checkbox" id="act-simukite" value="Simu kite"><label for="act-simukite">🎮 Simu kite</label>
       </div>
     </div>
   </div>
@@ -480,47 +251,75 @@
       <label>Comment nous a-t-il trouvés ?</label>
       <select id="source" onchange="handleSource()">
         <option value="">— Choisir —</option>
-        <option value="Bouche à oreille">Bouche à oreille</option>
-        <option value="Instagram">Instagram</option>
-        <option value="Facebook">Facebook</option>
-        <option value="Google">Google</option>
-        <option value="Site web">Site web</option>
-        <option value="Camping">Camping</option>
-        <option value="Office du tourisme">Office du tourisme</option>
-        <option value="Ancienne fiche">Ancienne fiche</option>
+        <option value="Bouche-à-oreille">Bouche-à-oreille</option>
+        <option value="GMB">GMB (Google My Business)</option>
+        <option value="Moteur de recherche">Moteur de recherche</option>
+        <option value="Sur place">Sur place</option>
+        <option value="Réseaux sociaux">Réseaux sociaux</option>
+        <option value="Document Print">Document Print</option>
+        <option value="IA">IA</option>
         <option value="Autre">Autre</option>
       </select>
-    </div>
-    <div class="field source-detail" id="sourceDetail-camping">
-      <label>Nom du camping</label>
-      <input type="text" id="sourceDetail-camping-val" placeholder="Ex: Camping des Corbières">
-    </div>
-    <div class="field source-detail" id="sourceDetail-bab">
-      <label>Recommandé par qui ?</label>
-      <input type="text" id="sourceDetail-bab-val" placeholder="Prénom / Nom">
-    </div>
-    <div class="field source-detail" id="sourceDetail-autre">
-      <label>Précisez</label>
-      <input type="text" id="sourceDetail-autre-val" placeholder="Précisez la source">
+
+      <div class="source-detail" id="sd-bab">
+        <span class="sublabel">RECOMMANDÉ PAR QUI ?</span>
+        <input type="text" id="sd-bab-val" placeholder="Prénom / Nom">
+      </div>
+
+      <div class="source-detail" id="sd-moteur">
+        <span class="sublabel">LEQUEL ?</span>
+        <div class="radio-group">
+          <input type="radio" name="sdMoteur" id="sdm-google" value="Google" checked><label for="sdm-google">Google</label>
+          <input type="radio" name="sdMoteur" id="sdm-bing" value="Bing"><label for="sdm-bing">Bing</label>
+        </div>
+        <div class="radio-group" style="margin-top:8px;">
+          <input type="radio" name="sdMoteur" id="sdm-ecosia" value="Ecosia"><label for="sdm-ecosia">Ecosia</label>
+          <input type="radio" name="sdMoteur" id="sdm-autre" value="Autre"><label for="sdm-autre">Autre</label>
+        </div>
+      </div>
+
+      <div class="source-detail" id="sd-social">
+        <span class="sublabel">LEQUEL ?</span>
+        <div class="radio-group">
+          <input type="radio" name="sdSocial" id="sds-insta" value="Instagram" checked><label for="sds-insta">Instagram</label>
+          <input type="radio" name="sdSocial" id="sds-fb" value="Facebook"><label for="sds-fb">Facebook</label>
+          <input type="radio" name="sdSocial" id="sds-autre" value="Autre"><label for="sds-autre">Autre</label>
+        </div>
+      </div>
+
+      <div class="source-detail" id="sd-print">
+        <span class="sublabel">LEQUEL ?</span>
+        <div class="radio-group">
+          <input type="radio" name="sdPrint" id="sdp-flyer" value="Flyer" checked><label for="sdp-flyer">Flyer</label>
+          <input type="radio" name="sdPrint" id="sdp-loisirs" value="Loisirs & Nature"><label for="sdp-loisirs">Loisirs & Nature</label>
+        </div>
+        <div class="radio-group" style="margin-top:8px;">
+          <input type="radio" name="sdPrint" id="sdp-aplpo" value="Carte Postale APLPO"><label for="sdp-aplpo">Carte APLPO</label>
+          <input type="radio" name="sdPrint" id="sdp-autre" value="Autre"><label for="sdp-autre">Autre</label>
+        </div>
+      </div>
+
+      <div class="source-detail" id="sd-autre">
+        <span class="sublabel">PRÉCISEZ</span>
+        <input type="text" id="sd-autre-val" placeholder="Quoi ?">
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Créneaux & Commentaire -->
+<!-- Suivi -->
 <div class="form-card">
-  <div class="section-title">Suivi</div>
+  <div class="section-title">Suivi initial</div>
   <div class="field-group">
     <div class="field">
       <label>Proposer des créneaux ?</label>
       <div class="radio-group">
-        <input type="radio" name="proposerCreneaux" id="cren-oui" value="Oui">
-        <label for="cren-oui">✅ Oui</label>
-        <input type="radio" name="proposerCreneaux" id="cren-non" value="Non" checked>
-        <label for="cren-non">❌ Non</label>
+        <input type="radio" name="proposerCreneaux" id="cren-oui" value="OUI"><label for="cren-oui">✅ Oui</label>
+        <input type="radio" name="proposerCreneaux" id="cren-non" value="NON" checked><label for="cren-non">❌ Non</label>
       </div>
     </div>
     <div class="field">
-      <label>Commentaire</label>
+      <label>Commentaire général</label>
       <textarea id="commentaire" placeholder="Notes libres sur ce prospect…"></textarea>
     </div>
   </div>
@@ -538,7 +337,6 @@
 <script>
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw7M3T6lQQ2SUNHa8GYyoWdBAlN-81loLE1ESWP5mWYPYWP4Skb1ZSHZX5zWTQeLsZV/exec';
 
-// Toggle profil
 document.querySelectorAll('input[name="typeProfil"]').forEach(r => {
   r.addEventListener('change', () => {
     const isTouriste = document.getElementById('touriste').checked;
@@ -550,24 +348,34 @@ document.querySelectorAll('input[name="typeProfil"]').forEach(r => {
 function handleSource() {
   const v = document.getElementById('source').value;
   document.querySelectorAll('.source-detail').forEach(el => el.classList.remove('visible'));
-  if (v === 'Camping') document.getElementById('sourceDetail-camping').classList.add('visible');
-  if (v === 'Bouche à oreille') document.getElementById('sourceDetail-bab').classList.add('visible');
-  if (v === 'Autre') document.getElementById('sourceDetail-autre').classList.add('visible');
+  if (v === 'Bouche-à-oreille') document.getElementById('sd-bab').classList.add('visible');
+  if (v === 'Moteur de recherche') document.getElementById('sd-moteur').classList.add('visible');
+  if (v === 'Réseaux sociaux') document.getElementById('sd-social').classList.add('visible');
+  if (v === 'Document Print') document.getElementById('sd-print').classList.add('visible');
+  if (v === 'Autre') document.getElementById('sd-autre').classList.add('visible');
 }
 
 function getActivites() {
   return Array.from(document.querySelectorAll('.act-item:checked')).map(c => c.value);
 }
 
-function getJours() {
-  return Array.from(document.querySelectorAll('.jour-item:checked')).map(c => c.value);
+function getDispos() {
+  const jours = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  const result = {};
+  jours.forEach(j => {
+    const el = document.querySelector(`.jour-item[value="${j}"]`);
+    result['Dispo' + j] = (el && el.checked) ? 'OUI' : 'NON';
+  });
+  return result;
 }
 
 function getSourceDetail() {
   const v = document.getElementById('source').value;
-  if (v === 'Camping') return document.getElementById('sourceDetail-camping-val').value;
-  if (v === 'Bouche à oreille') return document.getElementById('sourceDetail-bab-val').value;
-  if (v === 'Autre') return document.getElementById('sourceDetail-autre-val').value;
+  if (v === 'Bouche-à-oreille') return document.getElementById('sd-bab-val').value.trim();
+  if (v === 'Moteur de recherche') return document.querySelector('input[name="sdMoteur"]:checked')?.value || '';
+  if (v === 'Réseaux sociaux') return document.querySelector('input[name="sdSocial"]:checked')?.value || '';
+  if (v === 'Document Print') return document.querySelector('input[name="sdPrint"]:checked')?.value || '';
+  if (v === 'Autre') return document.getElementById('sd-autre-val').value.trim();
   return '';
 }
 
@@ -581,59 +389,60 @@ function showToast(msg, type = 'success') {
 async function submitProspect() {
   const prenom = document.getElementById('prenom').value.trim();
   const nom = document.getElementById('nom').value.trim();
-  if (!prenom || !nom) {
-    showToast('Prénom et Nom obligatoires', 'error');
-    return;
-  }
+  if (!prenom || !nom) { showToast('Prénom et Nom obligatoires', 'error'); return; }
 
   const typeProfil = document.querySelector('input[name="typeProfil"]:checked').value;
   const isTouriste = typeProfil === 'Touriste';
 
   const payload = {
     action: 'addProspect',
-    prenom,
-    nom,
-    telephone: document.getElementById('telephone').value.trim().replace(/^\+33/, '0').replace(/\s/g, ''),
+    prenom, nom,
+    telephone: document.getElementById('telephone').value.trim(),
     email: document.getElementById('email').value.trim(),
+    codePostal: document.getElementById('codePostal').value.trim(),
+    ville: document.getElementById('ville').value.trim(),
+    pays: document.getElementById('pays').value.trim() || 'France',
     typeProfil,
     activites: getActivites().join(', '),
     source: document.getElementById('source').value,
     sourceDetail: getSourceDetail(),
     dateDebut: isTouriste ? document.getElementById('dateDebut').value : '',
     dateFin: isTouriste ? document.getElementById('dateFin').value : '',
-    joursDispo: !isTouriste ? getJours().join(', ') : '',
-    proposerCreneaux: document.querySelector('input[name="proposerCreneaux"]:checked')?.value || 'Non',
+    ...getDispos(),
+    commentaireDispo: document.getElementById('commentaireDispo').value.trim(),
+    proposerCreneaux: document.querySelector('input[name="proposerCreneaux"]:checked')?.value || 'NON',
+    ajouteListeCreneau: 'NON',
     commentaire: document.getElementById('commentaire').value.trim(),
   };
 
   const btn = document.getElementById('btnSubmit');
-  btn.classList.add('loading');
-  btn.disabled = true;
+  btn.classList.add('loading'); btn.disabled = true;
 
   try {
     await fetch(WEB_APP_URL + '?' + new URLSearchParams(payload).toString(), {
-      method: 'GET',
-      mode: 'no-cors'
+      method: 'GET', mode: 'no-cors'
     });
-    showToast('Prospect créé avec succès !', 'success');
-    setTimeout(() => {
-      // Reset form
-      document.getElementById('prenom').value = '';
-      document.getElementById('nom').value = '';
-      document.getElementById('telephone').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('commentaire').value = '';
-      document.getElementById('source').value = '';
-      document.querySelectorAll('.act-item, .jour-item').forEach(c => c.checked = false);
-      document.getElementById('cren-non').checked = true;
-      handleSource();
-    }, 1500);
+    showToast('Prospect créé !', 'success');
+    setTimeout(() => resetForm(), 1500);
   } catch (e) {
     showToast('Erreur réseau', 'error');
   } finally {
-    btn.classList.remove('loading');
-    btn.disabled = false;
+    btn.classList.remove('loading'); btn.disabled = false;
   }
+}
+
+function resetForm() {
+  ['prenom','nom','telephone','email','codePostal','ville','commentaireDispo','commentaire'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('pays').value = 'France';
+  document.getElementById('source').value = '';
+  document.querySelectorAll('.act-item, .jour-item').forEach(c => c.checked = false);
+  document.getElementById('cren-non').checked = true;
+  document.getElementById('surplace').checked = true;
+  document.getElementById('block-jours').classList.add('visible');
+  document.getElementById('block-dates').classList.remove('visible');
+  handleSource();
 }
 </script>
 </body>
