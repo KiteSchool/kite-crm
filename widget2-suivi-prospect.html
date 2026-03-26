@@ -649,15 +649,63 @@ function get(p, keys) {
   return '—';
 }
 
-function renderFiche(p) {
-  // Rappel
-  const rappelDate = get(p, ['prochainRappel','ProchainRappel']);
-  const rappelEl = document.getElementById('rappelBody');
-  if (rappelDate !== '—') {
-    rappelEl.innerHTML = `<div class="rappel-item"><div class="rappel-date">📅 ${rappelDate}</div><div class="rappel-type">Prochain rappel programmé</div></div>`;
-  } else {
-    rappelEl.innerHTML = `<div style="font-size:13px;color:var(--muted);text-align:center;padding:6px 0;">Aucun rappel programmé</div>`;
+async function renderFiche(p) {
+  // Skeleton pendant chargement
+  document.getElementById('rappelBody').innerHTML = '<div class="skeleton"></div><div class="skeleton" style="width:60%;margin-top:6px;"></div>';
+
+  // Charger la fiche complète via getProspect pour avoir suivi + rappels
+  let suivi = [];
+  const prospectId = p.id || p.ID || '';
+  if (prospectId) {
+    try {
+      const res = await fetch(WEB_APP_URL + '?action=getProspect&id=' + encodeURIComponent(prospectId));
+      const data = await res.json();
+      if (data && data.prospect) {
+        Object.assign(p, data.prospect);
+        currentProspect = p;
+        suivi = data.prospect.suivi || [];
+      }
+    } catch (e) { console.log('getProspect error:', e); }
   }
+
+  // Rappels
+  const rappelEl = document.getElementById('rappelBody');
+  const rappels = suivi.filter(s => (s.EstRappel || s.estRappel || '') === 'OUI');
+  const aFaire = rappels.filter(s => (s.StatutRappel || s.statutRappel || '') === 'A faire')
+    .sort((a,b) => new Date(a.DateEcheance||a.dateEcheance||0) - new Date(b.DateEcheance||b.dateEcheance||0));
+  const faits = rappels.filter(s => (s.StatutRappel || s.statutRappel || '') !== 'A faire');
+
+  let rappelHtml = '';
+  if (aFaire.length > 0) {
+    aFaire.forEach((r, i) => {
+      const d = r.DateEcheance || r.dateEcheance || '—';
+      const t = r.TypeRappel || r.typeRappel || '';
+      const suite = r.SuiteADonner || r.suiteADonner || '';
+      rappelHtml += `<div class="rappel-item" style="${i>0?'opacity:0.75':''}">
+        <div class="rappel-date">📅 ${d}${t?' · '+t:''}</div>
+        ${suite?'<div class="rappel-type">→ '+suite+'</div>':''}
+      </div>`;
+    });
+  } else {
+    rappelHtml = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:4px 0 8px;">Aucun rappel à faire</div>';
+  }
+  if (faits.length > 0) {
+    rappelHtml += '<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:10px 0 6px;">Historique</div>';
+    faits.slice(0,5).forEach(r => {
+      const d = r.DateEcheance || r.dateEcheance || '—';
+      const t = r.TypeRappel || r.typeRappel || '';
+      const st = r.StatutRappel || r.statutRappel || '';
+      rappelHtml += `<div class="rappel-item fait"><div class="rappel-date">${d}${t?' · '+t:''}</div><div class="rappel-type">${st}</div></div>`;
+    });
+  }
+  if (rappels.length === 0) {
+    // Fallback champ calculé
+    const rappelDate = get(p, ['prochainRappel','ProchainRappel']);
+    rappelHtml = rappelDate !== '—'
+      ? `<div class="rappel-item"><div class="rappel-date">📅 ${rappelDate}</div></div>`
+      : '<div style="font-size:13px;color:var(--muted);text-align:center;padding:6px 0;">Aucun rappel programmé</div>';
+  }
+  rappelEl.innerHTML = rappelHtml;
 
   // Disponibilités
   const typeProfil = get(p, ['typeProfil','TypeProfil']);
